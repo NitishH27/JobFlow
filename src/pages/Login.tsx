@@ -7,6 +7,7 @@ import {
   TextField,
   Button,
 } from "@mui/material";
+import expandedLogo from '../images/expandedLogo.jpg';
 
 const Login = () => {
   const onDontHaveAccountClick = () => {
@@ -16,8 +17,9 @@ const Login = () => {
     <>
       <Grid container display={"flex"} width={"100%"} flexDirection={"row"}>
         <Box sx={{ width: "36%", height: "100vh", bgcolor: "primary.main" }} />
+    <img src={expandedLogo} alt="LOGO"  width={"20%"} height={'20%'} style={{marginLeft:'50px'}} />
         <Box>
-          <Paper sx={{ width: 500, height: 500, mt: 15, ml: 20 }} elevation={3}>
+          <Paper sx={{ width: 500, height: 500, mt: 20, ml: 20 }} elevation={3}>
             <Typography
               variant="h5"
               color={"primary.main"}
@@ -41,6 +43,7 @@ const Login = () => {
             <Button
               variant="contained"
               color="primary"
+              
               sx={{ width: 400, mt: 5, ml: 5 }}
             >
               Login
