@@ -1,16 +1,39 @@
-import { Grid, Typography } from '@mui/material'
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import theme from "./theme/theme";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Login from "./pages/Login";
+import RootLayout from "./pages/RootLayout";
+import SignUp from "./pages/SignUp";
 
+const queryClient = new QueryClient();
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <RootLayout />,
+      children: [
+        {
+          path: "login",
+          element: <Login />,
+        },
+        {
+          path: "signup",
+          element: <SignUp />,
+        },
+      ],
+    },
+  ]);
 
   return (
-    <>
-      <Grid container >
-        <Grid >
-          <Typography variant='h4' color='primary'>Welcome to JobFlow</Typography>
-        </Grid>
-      </Grid>
-    </>
-  )
+    <QueryClientProvider client={queryClient}>
+      <CssBaseline>
+        <ThemeProvider theme={theme}>
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </CssBaseline>
+    </QueryClientProvider>
+  );
 }
 
-export default App
+export default App;
