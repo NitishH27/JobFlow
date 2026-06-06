@@ -1,9 +1,9 @@
 import { useState } from "react";
 import {
   AppBar,
+  Avatar,
   Grid,
   IconButton,
-  Menu,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -17,11 +17,16 @@ interface LayoutProps {
 }
 const Layout = ({ children, title, description }: LayoutProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
+  const [isMenuOpen, setIsmenuOpen] = useState(false);
   const handleDrawerOpen = () => {
-    setIsDrawerOpen(true);
+    setIsDrawerOpen((prev) => !prev);
   };
-  console.log(isDrawerOpen);
+
+  const onProfileSection = () => {
+    setIsmenuOpen((prev) => !prev);
+  }
+
+  console.log(isMenuOpen);
   return (
     <>
       <Grid container display={"flex"} width={"100%"} flexDirection={"column"}>
@@ -58,6 +63,7 @@ const Layout = ({ children, title, description }: LayoutProps) => {
                 {description}
               </Typography>
             </Grid>
+            <Avatar sx={{ ml: 2, bgcolor: "primary.contrastText" , color: "primary.main", cursor: "pointer"}} onClick={()=> onProfileSection()}>NH</Avatar>
           </Toolbar>
         </AppBar>
         <Grid
@@ -65,8 +71,8 @@ const Layout = ({ children, title, description }: LayoutProps) => {
           display={"flex"}
           width={"100%"}
           flexDirection={"row"}
-        ></Grid>
-        {children}
+        >
+        {children}</Grid>
         <Sidebar isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen} />
       </Grid>
     </>
