@@ -5,6 +5,7 @@ import PlaylistRemoveRoundedIcon from '@mui/icons-material/PlaylistRemoveRounded
 import GroupRoundedIcon from '@mui/icons-material/GroupRounded';
 import Layout from "../components/Layout";
 import DashboardWidget from "../components/dahsboardWidget";
+import GapPieChart from "../components/GapPieChart";
 
 const Dashboard = () => {
   return (
@@ -18,6 +19,7 @@ const Dashboard = () => {
       <DashboardWidget text="Rejected Applications" icon={<PlaylistRemoveRoundedIcon />} count={3} />
       <DashboardWidget text="Shortlisted Candidates" icon={<GroupRoundedIcon />} count={7} />
       </Grid>
+      <GapPieChart />
       </Grid>
     </Layout>
   );
