@@ -5,11 +5,10 @@ import {
   ListItemText,
   List,
   ListItem,
-  Grid,
   Divider,
   Box,
 } from "@mui/material";
-import { useState, type Dispatch, type SetStateAction } from "react";
+import { type Dispatch, type SetStateAction } from "react";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 interface SidebarProps {
@@ -106,6 +105,7 @@ const Sidebar = ({ width, isOpen, setIsOpen }: SidebarProps) => {
           transition: "width 0.5s",
           boxSizing: "border-box",
           backgroundColor: "primary.contrastText",
+          top: "64px",
           color: "primary.main",
           "& .MuiListItemIcon-root": {
             color: "primary.main",
