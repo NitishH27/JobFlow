@@ -9,8 +9,12 @@ import {
   Box,
 } from "@mui/material";
 import { type Dispatch, type SetStateAction } from "react";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import { useNavigate } from "react-router-dom";
+import {
+  SIDEBAR_MENU,
+  SIDEBAR_BOTTOM_MENU,
+} from './constants/SidebarMenu';
+
 interface SidebarProps {
   setIsOpen?: Dispatch<SetStateAction<boolean>>;
   isOpen?: boolean;
@@ -21,96 +25,94 @@ const listItemStyle = {
   pX: "6px",
   paddingY: "4px",
   textWrap: "nowrap",
-  " &:focus, &:hover": {
-    background: ` linear-gradient(0deg, rgba(33, 150, 243, 0.08) 0%, rgba(33, 150, 243, 0.08) 100%), #0b0236`,
-    ".MuiButtonBase-root.MuiListItemButton-root .MuiListItemIcon-root": {
+  "&:focus, &:hover": {
+    background:
+      "linear-gradient(0deg, rgba(33, 150, 243, 0.08) 0%, rgba(33, 150, 243, 0.08) 100%), #0b0236",
+    ".MuiListItemIcon-root": {
       color: "primary.contrastText",
     },
-    ".MuiButtonBase-root": {
-      background: `none`,
-      color: "secondary.main",
-    },
-  },
-  "&.active": {
-    background: "primary.main",
-    color: "secondary.main",
-    ".MuiButtonBase-root.MuiListItemButton-root .MuiListItemIcon-root": {
-      color: "secondary.main",
-    },
-    ".MuiButtonBase-root": {
-      background: `none`,
-      color: "secondary.main",
+    ".MuiListItemText-primary": {
+      color: "primary.contrastText",
     },
   },
 };
 
-const Sidebar = ({ width, isOpen, setIsOpen }: SidebarProps) => {
+const Sidebar = ({
+  width = '250px',
+  isOpen,
+  setIsOpen,
+}: SidebarProps) => {
+  const navigate = useNavigate();
+
+  const handleNavigate = (path: string) => {
+    navigate(path);
+    setIsOpen?.(false);
+  };
+
   const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation">
+    <Box sx={{ width }} role="presentation">
       <List>
-        {[
-          "My Applications",
-          "Saved Jobs",
-          "Tasks",
-          "Documents",
-          "Analytics",
-        ].map((text, index) => (
-          <ListItem key={text} disablePadding sx={listItemStyle}>
-            <ListItemButton>
-              <ListItemIcon
-                sx={{
-                  color: "primary.main",
-                  ".MuiListItemButton-root:hover &": {
-                    color: "primary.contrastText",
-                  },
-                }}
+        {SIDEBAR_MENU.map((item) => {
+          const Icon = item.icon;
+
+          return (
+            <ListItem
+              key={item.label}
+              disablePadding
+              sx={listItemStyle}
+            >
+              <ListItemButton
+                onClick={() => handleNavigate(item.path)}
               >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText color="primary" primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+                <ListItemIcon sx={{ color: "primary.main" }}>
+                  <Icon />
+                </ListItemIcon>
+
+                <ListItemText primary={item.label} />
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
       </List>
+
       <Divider />
+
       <List>
-        {["Settings", "Logout"].map((text, index) => (
-          <ListItem key={text} disablePadding sx={listItemStyle}>
-            <ListItemButton>
-              <ListItemIcon
-                sx={{
-                  color: "primary.main",
-                  ".MuiListItemButton-root:hover &": {
-                    color: "primary.contrastText",
-                  },
-                }}
+        {SIDEBAR_BOTTOM_MENU.map((item) => {
+          const Icon = item.icon;
+
+          return (
+            <ListItem
+              key={item.label}
+              disablePadding
+              sx={listItemStyle}
+            >
+              <ListItemButton
+                onClick={() => handleNavigate(item.path)}
               >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText color="primary" primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+                <ListItemIcon sx={{ color: "primary.main" }}>
+                  <Icon />
+                </ListItemIcon>
+
+                <ListItemText primary={item.label} />
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
       </List>
     </Box>
   );
+
   return (
     <Drawer
       sx={{
         width,
-        transition: "width 0.5s",
         flexShrink: 0,
         "& .MuiDrawer-paper": {
           width,
-          transition: "width 0.5s",
           boxSizing: "border-box",
           backgroundColor: "primary.contrastText",
           top: "64px",
-          color: "primary.main",
-          "& .MuiListItemIcon-root": {
-            color: "primary.main",
-          },
-
           overflow: "hidden",
         },
       }}
