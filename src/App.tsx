@@ -6,6 +6,9 @@ import Login from "./pages/Login";
 import RootLayout from "./pages/RootLayout";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
+import MyApplications from "./pages/MyApplications";
+import MyProfile from "./pages/MyProfile";
+import SavedJobs from "./pages/SavedJobs";
 const queryClient = new QueryClient();
 function App() {
   const router = createBrowserRouter([
@@ -24,6 +27,18 @@ function App() {
         {
           path: "dashboard",
           element: <Dashboard />,
+        },
+        {
+          path:"my-applications",
+          element:<MyApplications/>
+        },
+        {
+          path: "my-profile",
+          element: <MyProfile />,
+        },
+        {
+          path: "saved-jobs",
+          element: <SavedJobs />,
         },
       ],
     },
